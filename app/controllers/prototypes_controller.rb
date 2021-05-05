@@ -35,9 +35,9 @@ class PrototypesController < ApplicationController
   end
 
   def update
-    @prototype = Prototype.update
-    if @prototype.update
-      redirect_to prototypes_path
+    @prototype = Prototype.find(params[:id])
+    if @prototype.update(prototype_params)
+      redirect_to prototype_path
     else
       render :edit
     end
@@ -51,7 +51,7 @@ class PrototypesController < ApplicationController
 
   def authenticate_user!
     unless user_signed_in?
-      redirect_to root_path
+      redirect_to new_user_session_path
     end
   end
 
